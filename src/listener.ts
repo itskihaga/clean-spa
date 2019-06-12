@@ -6,11 +6,10 @@ export interface PageInfo {
     path:string
     bootstrap?:()=>void,
     mount:(element:HTMLElement)=>void,
-    unmount:(element:HTMLElement)=>void,
-    mountPoint():HTMLElement
+    unmount:(element:HTMLElement)=>void
 }
 
-export default (pages:PageInfo[]):LocationListener => {
+export default (pages:PageInfo[],serveElement:()=>HTMLElement):LocationListener => {
 
     let current : PageInfo | null = null
 
@@ -18,9 +17,9 @@ export default (pages:PageInfo[]):LocationListener => {
         for(let page of pages){
             if(path(page.path)(location.pathname)){
                 if(current){
-                    current.unmount(current.mountPoint())
+                    current.unmount(serveElement())
                 }
-                page.mount(page.mountPoint())
+                page.mount(serveElement())
                 current = page
             }
         }

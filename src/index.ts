@@ -12,13 +12,6 @@ const listener = createListener([
         },
         unmount(elm){
             while (elm.firstChild) elm.removeChild(elm.firstChild);
-        },
-        mountPoint(){
-            const tag = document.getElementById("home")
-            if(tag){
-                return tag;
-            }
-            throw new Error("homeがない");
         }
     },
     {
@@ -30,13 +23,6 @@ const listener = createListener([
         },
         unmount(elm){
             while (elm.firstChild) elm.removeChild(elm.firstChild);
-        },
-        mountPoint(){
-            const tag = document.getElementById("about")
-            if(tag){
-                return tag;
-            }
-            throw new Error("aboutがない");
         }
     },
     {
@@ -48,21 +34,21 @@ const listener = createListener([
         },
         unmount(elm){
             while (elm.firstChild) elm.removeChild(elm.firstChild);
-        },
-        mountPoint(){
-            const tag = document.getElementById("top")
-            if(tag){
-                return tag;
-            }
-            throw new Error("topがない");
         }
     }
-])
+],()=>{
+    const mountPoint = document.getElementById("mount")
+    if(mountPoint){
+        return mountPoint
+    }
+    throw new Error()
+})
 listener(history.location,"PUSH")
 history.listen(listener)
 
 document.querySelectorAll("a").forEach(e =>{
-    e.addEventListener("click",() =>{
+    e.addEventListener("click",event =>{
+        event.preventDefault()
         history.push(e.innerText)
     })
 })
