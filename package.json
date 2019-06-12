@@ -20,6 +20,9 @@
     "webpack-dev-server": "^3.7.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "@types/history": "^4.7.2",
+    "history": "^4.9.0",
+    "path-to-regexp": "^3.0.0"
   }
 }
