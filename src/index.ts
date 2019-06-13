@@ -1,50 +1,51 @@
 import {createBrowserHistory} from "history"
-import createListener from "./listener"
+import applySPA from "./applySPA"
 
 const history = createBrowserHistory()
-const listener = createListener([
-    {
-        path:"/home",
-        mount(elm){
-            const newElm = document.createElement("div");
-            newElm.innerText ="HOME"
-            elm.appendChild(newElm)
+applySPA(
+    history,
+    [
+        {
+            path:"/",
+            mount(){
+                const newElm = document.createElement("div");
+                newElm.innerText ="TOP"
+                return newElm
+            },
+            unmount(target:HTMLElement){
+                target.remove()
+            }
         },
-        unmount(elm){
-            while (elm.firstChild) elm.removeChild(elm.firstChild);
+        {
+            path:"/home",
+            mount(){
+                const newElm = document.createElement("div");
+                newElm.innerText ="HOME"
+                return newElm
+            },
+            unmount(target:HTMLElement){
+                target.remove()
+            }
+        },
+        {
+            path:"/about",
+            mount(){
+                const newElm = document.createElement("div");
+                newElm.innerText ="ABOUT"
+                return newElm
+            },
+            unmount(target:HTMLElement){
+                target.remove()
+            }
         }
-    },
-    {
-        path:"/about",
-        mount(elm){
-            const newElm = document.createElement("div");
-            newElm.innerText ="ABOUT"
-            elm.appendChild(newElm)
-        },
-        unmount(elm){
-            while (elm.firstChild) elm.removeChild(elm.firstChild);
-        }
-    },
-    {
-        path:"/",
-        mount(elm){
-            const newElm = document.createElement("div");
-            newElm.innerText ="TOP"
-            elm.appendChild(newElm)
-        },
-        unmount(elm){
-            while (elm.firstChild) elm.removeChild(elm.firstChild);
+    ],
+    (nextPage:HTMLElement)=>{
+        const mountPoint = document.getElementById("mount")
+        if(mountPoint){
+            mountPoint.appendChild(nextPage)
         }
     }
-],()=>{
-    const mountPoint = document.getElementById("mount")
-    if(mountPoint){
-        return mountPoint
-    }
-    throw new Error()
-})
-listener(history.location,"PUSH")
-history.listen(listener)
+)
 
 document.querySelectorAll("a").forEach(e =>{
     e.addEventListener("click",event =>{
