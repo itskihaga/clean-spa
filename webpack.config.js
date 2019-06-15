@@ -5,7 +5,7 @@ const file = (...args) => path.resolve(__dirname,...args)
 module.exports = {
     mode: 'development',
     entry: {
-        main: ['@babel/polyfill',file("src","index.ts")]
+        main: ['@babel/polyfill',file("src","sample.ts")]
     },
     output: {
         path: file("dist"),
@@ -17,6 +17,11 @@ module.exports = {
                 test: [/\.js$/,/\.ts$/],
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: [/\.ts$/],
+                exclude: /node_modules/,
+                loader: 'ts-loader'
             }
         ]
     },

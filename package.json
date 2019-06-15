@@ -23,6 +23,8 @@
     "@babel/polyfill": "^7.4.4",
     "@types/history": "^4.7.2",
     "history": "^4.9.0",
-    "path-to-regexp": "^3.0.0"
+    "path-to-regexp": "^3.0.0",
+    "ts-loader": "^6.0.2",
+    "typescript": "^3.5.2"
   }
 }

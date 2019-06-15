@@ -1,10 +1,14 @@
 import * as pathToRegexp from "path-to-regexp"
 
+export interface MountResult<T> {
+    mounted:T,
+    unmount:()=>void
+}
+
 export interface PageDefinition<T> {
     path:string
     bootstrap?:()=>void,
-    mount:()=>T,
-    unmount:(target:T)=>void
+    mount:()=>MountResult<T>
 }
 
 export type ResolveLocation<T> = (pathname:string) => PageDefinition<T> | void 
@@ -24,6 +28,8 @@ export const pathMatcher = (matcher : string) => {
     const reg = pathToRegexp(matcher,key)
     return (url : string) => {
         const res = reg.exec(url)
-        return res ? res.slice(1) : null
+        //return res ? res.slice(1) : null
+        return !!res
+
     }
 }
