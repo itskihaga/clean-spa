@@ -11,7 +11,6 @@ if(!mountPoint){
 }
 
 const context = createSPA<HTMLElement>(
-
         [
             {
                 path:"/",
@@ -50,6 +49,8 @@ const context = createSPA<HTMLElement>(
             pathResolver
         }
 )
+
+context.applyWindowEventListener(window)
 
 document.querySelectorAll("a").forEach(e =>{
     e.addEventListener("click",event =>{

@@ -14,15 +14,6 @@ export interface ComponentInstance<T,P> {
     mounted:T
 }
 
-export namespace PathResolver {
-    export type Result<P> = {
-        params:P,
-        matches:true
-    } | {
-        matches:false
-    }
-}
-
 export interface Config<P> {
     history:History,
     pathResolver:PathResolver<P>,
@@ -40,7 +31,7 @@ export default <T,P = undefined>(components:ComponentDefinition<T,P>[],{attach,d
 
     let current : {definition:ComponentDefinition<T,P>,instance:ComponentInstance<T,P>} | void
 
-    const _push = (path:string) => {
+    const change = (path:string) => {
        
         for(let resolve of resolvers) {
             const res = resolve(path)
@@ -57,14 +48,18 @@ export default <T,P = undefined>(components:ComponentDefinition<T,P>[],{attach,d
             } 
         }
     }
+
     const push = (path:string) => {
         history.push(path)
-        _push(path)
+        change(path)
     }
 
-    _push(history.getPath())
+    change(history.getPath())
 
     return {
-        push
+        push,
+        applyWindowEventListener(window:Window){
+            window.addEventListener("popstate",()=>change(history.getPath()))
+        }
     }
 }
