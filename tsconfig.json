@@ -16,7 +16,7 @@
       "baseUrl":".",
       "rootDir": ".",
       "paths": {
-        "@/*": ["src/*"]
+        "zenra-spa": ["src/index.ts"]
       },
       "typeRoots": ["node_modules/@types"]
     },

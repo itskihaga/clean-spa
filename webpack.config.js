@@ -32,7 +32,7 @@ module.exports = {
         extensions: ['.js', '.jsx','.ts','.tsx'],
         modules: ['node_modules'],
         alias: {
-            '@': file("src")
+            'zenra-spa': file("src")
         }
     },
     devServer: {

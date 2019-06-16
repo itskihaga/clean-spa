@@ -1,5 +1,5 @@
 
-import createSPA from "@/brief"
+import createSPA from "../brief/src"
 
 const mountPoint = document.getElementById("mount")
 

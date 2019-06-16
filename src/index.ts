@@ -2,6 +2,10 @@ import { History } from "./history"
 import {PathResolver} from "./pathResolver"
 import {Attachment}from "./attachment"
 
+export * from "./attachment"
+export * from "./pathResolver"
+export * from "./history"
+
 export interface ComponentDefinition<T,P> {
     load?():void,
     mount(params:P):ComponentInstance<T,P>,

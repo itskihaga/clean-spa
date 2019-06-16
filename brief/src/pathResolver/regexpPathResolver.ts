@@ -1,7 +1,5 @@
-import {PathResolver} from "./index"
+import {PathResolver} from "zenra-spa"
 import * as pathToRegexp from "path-to-regexp"
-
-
 
 export type Params = {[key:string]:string | undefined}
 const pathResolver : PathResolver<Params> = matcher => {

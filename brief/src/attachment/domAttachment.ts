@@ -1,4 +1,4 @@
-import {Attachment}from "./index"
+import {Attachment}from "zenra-spa"
 export default (mountPoint:HTMLElement):Attachment<HTMLElement> => {
     return {
         attach(elm){

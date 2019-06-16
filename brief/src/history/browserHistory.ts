@@ -1,4 +1,4 @@
-import {History} from "./index"
+import {History} from "zenra-spa"
 
 export default ():History => (
     ({
