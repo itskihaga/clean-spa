@@ -10,6 +10,8 @@ npm i zenra-spa
 
 import createSPA from "zenra-spa/brief"
 
+const mountPoint = document.getElementById("mount")
+
 const {push} = createSPA(
         [
             {

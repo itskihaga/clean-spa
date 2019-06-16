@@ -1,7 +1,7 @@
 import {History} from "zenra-spa"
 
 export default (window:Window):History => (
-    
+
     ({
         getPath(){
             return window.location.pathname
@@ -10,7 +10,7 @@ export default (window:Window):History => (
             window.history.pushState(null,"",path)
         },
         watch(onPathChange){
-            window.addEventListener("popstate",()=> onPathChange(window.location.pathname))
+            window.addEventListener("popstate",onPathChange)
         }
     })
 )

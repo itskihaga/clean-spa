@@ -53,15 +53,13 @@ export default <T,P = undefined>(components:ComponentDefinition<T,P>[],{attach,d
         }
     }
 
-    const push = (path:string) => {
-        history.push(path)
-        change(path)
-    }
-
-    history.watch && history.watch(change)
+    history.watch && history.watch(()=>change(history.getPath()))
     change(history.getPath())
 
     return {
-        push
+        push(path:string){
+            history.push(path)
+            change(path)
+        }
     }
 }
