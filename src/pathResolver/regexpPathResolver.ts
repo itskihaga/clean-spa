@@ -1,6 +1,10 @@
 import {PathResolver} from "./index"
 import * as pathToRegexp from "path-to-regexp"
-const pathResolver : PathResolver<{[key:string]:string | undefined}> = matcher => {
+
+
+
+export type Params = {[key:string]:string | undefined}
+const pathResolver : PathResolver<Params> = matcher => {
     const keys :pathToRegexp.Key[] = []
     const reg = pathToRegexp(matcher,keys)
     return path => {
