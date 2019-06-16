@@ -7,7 +7,7 @@ if(!mountPoint){
     throw new Error()
 }
 
-const context = createSPA(
+const {push} = createSPA(
         [
             {
                 path:"/",
@@ -46,6 +46,6 @@ const context = createSPA(
 document.querySelectorAll("a").forEach(e =>{
     e.addEventListener("click",event =>{
         event.preventDefault()
-        context.push(e.innerText)
+        push(e.pathname)
     })
 })

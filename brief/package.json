@@ -4,8 +4,5 @@
   "main": "../public/brief/src/index.js",
   "author": "hagaitski",
   "license": "ISC",
-  "peerDependencies": {
-    "zenra-spa": "0.0.9"
-  },
   "files": []
 }

@@ -1,20 +1,16 @@
 {
   "name": "zenra-spa",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Zenra SPA is light weight & clean & dependency injectable SPA Library",
   "main": "public/src/index.js",
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server",
-    "prepublish": "tsc --p tsconfig.publish.json"
+    "prepublish": "tsc"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "babel-loader": "^8.0.6",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.33.0",
     "webpack-cli": "^3.3.4",

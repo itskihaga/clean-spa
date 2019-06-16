@@ -10,13 +10,7 @@ npm i zenra-spa
 
 import createSPA from "zenra-spa/brief"
 
-const mountPoint = document.getElementById("mount")
-
-if(!mountPoint){
-    throw new Error()
-}
-
-const context = createSPA(
+const {push} = createSPA(
         [
             {
                 path:"/",
@@ -51,5 +45,12 @@ const context = createSPA(
         ],
         mountPoint
 )
+
+document.querySelectorAll("a").forEach(e =>{
+    e.addEventListener("click",event =>{
+        event.preventDefault()
+        push(e.pathname)
+    })
+})
 
 ```
