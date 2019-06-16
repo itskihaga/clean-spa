@@ -1,18 +1,11 @@
 {
   "name": "zenra-spa-brief",
-  "version": "0.0.6",
-  "description": "",
+  "description": "zenra-spa-brief",
   "main": "../public/brief/src/index.js",
-  "author": "",
+  "author": "hagaitski",
   "license": "ISC",
   "peerDependencies": {
-    "zenra-spa": "0.0.6"
+    "zenra-spa": "0.0.9"
   },
-  "scripts": {
-    "compile": "tsc"
-  },
-  "files": [],
-  "devDependencies": {
-    "typescript": "^3.5.2"
-  }
+  "files": []
 }
