@@ -9,7 +9,8 @@ module.exports = {
     },
     output: {
         path: file("dist"),
-        filename: 'index.js'
+        filename: 'index.js',
+        publicPath:"/"
     },
     module: {
         rules: [
@@ -25,6 +26,7 @@ module.exports = {
             }
         ]
     },
+
 
     resolve: {
         extensions: ['.js', '.jsx','.ts','.tsx'],

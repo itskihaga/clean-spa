@@ -1,8 +1,5 @@
 
-import createSPA,{ComponentDefinition} from "./index"
-import createAttachment from "./attachment/dom"
-import createHistory from "./history/browserHistory"
-import pathResolver from "./pathResolver/simplePathResolver"
+import createSPA from "@/brief"
 
 const mountPoint = document.getElementById("mount")
 
@@ -10,7 +7,7 @@ if(!mountPoint){
     throw new Error()
 }
 
-const context = createSPA<HTMLElement>(
+const context = createSPA(
         [
             {
                 path:"/",
@@ -33,21 +30,17 @@ const context = createSPA<HTMLElement>(
                 }
             },
             {
-                path:"/about",
-                mount(){
+                path:"/about/:name?",
+                mount(params){
                     const newElm = document.createElement("div");
-                    newElm.innerText ="ABOUT"
+                    newElm.innerText ="ABOUT " + (params[0] || "")
                     return {
                         mounted:newElm
                     }
                 }
             }
         ],
-        createAttachment(mountPoint),
-        {
-            history:createHistory(),
-            pathResolver
-        }
+        mountPoint
 )
 
 context.applyWindowEventListener(window)
