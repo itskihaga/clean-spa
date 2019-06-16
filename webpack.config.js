@@ -5,7 +5,7 @@ const file = (...args) => path.resolve(__dirname,...args)
 module.exports = {
     mode: 'development',
     entry: {
-        main: ['@babel/polyfill',file("src","sample.ts")]
+        main: ['@babel/polyfill',file("sample","index.ts")]
     },
     output: {
         path: file("dist"),
@@ -42,7 +42,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: file("src",'index.html'),
+            template: file("sample",'index.html'),
             filename: 'index.html'
         })
     ]

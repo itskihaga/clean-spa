@@ -1,11 +1,12 @@
 {
-  "name": "webpack-proto",
-  "version": "1.0.0",
+  "name": "zenra-spa",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "public/src/index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "prepublish": "tsc --p tsconfig.publish.json"
   },
   "author": "",
   "license": "ISC",

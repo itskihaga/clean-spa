@@ -18,9 +18,11 @@
       "paths": {
         "@/*": ["src/*"]
       },
-      "typeRoots": ["node_modules/@types"]
+      "typeRoots": ["node_modules/@types"],
+      "outDir":"./public",
+      "declaration": true
     },
     "exclude": [
-      "node_modules","public"
+      "node_modules","public","sample"
     ]
   }
