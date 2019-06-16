@@ -33,7 +33,7 @@ const context = createSPA(
                 path:"/about/:name?",
                 mount(params){
                     const newElm = document.createElement("div");
-                    newElm.innerText ="ABOUT " + (params[0] || "")
+                    newElm.innerText ="ABOUT " + (params.name || "")
                     return {
                         mounted:newElm
                     }

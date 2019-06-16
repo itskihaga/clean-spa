@@ -1,10 +1,19 @@
 import {PathResolver} from "./index"
 import * as pathToRegexp from "path-to-regexp"
-const pathResolver : PathResolver<string[]> = matcher => {
-    const reg = pathToRegexp(matcher)
+const pathResolver : PathResolver<{[key:string]:string | undefined}> = matcher => {
+    const keys :pathToRegexp.Key[] = []
+    const reg = pathToRegexp(matcher,keys)
     return path => {
         const res = reg.exec(path)
-        return res ? {params: res.slice(1)} : false
+        if(!res) {
+            return false
+        }
+        const params : {[key:string]:string} = {}
+        keys.forEach((e,i)=> {
+            params[e.name] = res[i + 1]
+            
+        })
+        return {params}
     }
 }
 
