@@ -58,12 +58,10 @@ export default <T,P = undefined>(components:ComponentDefinition<T,P>[],{attach,d
         change(path)
     }
 
+    history.watch && history.watch(change)
     change(history.getPath())
 
     return {
-        push,
-        applyWindowEventListener(window:Window){
-            window.addEventListener("popstate",()=>change(history.getPath()))
-        }
+        push
     }
 }

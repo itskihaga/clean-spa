@@ -43,8 +43,6 @@ const context = createSPA(
         mountPoint
 )
 
-context.applyWindowEventListener(window)
-
 document.querySelectorAll("a").forEach(e =>{
     e.addEventListener("click",event =>{
         event.preventDefault()

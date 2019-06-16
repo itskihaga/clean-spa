@@ -5,7 +5,7 @@ import pathResolver,{Params} from "./pathResolver/regexpPathResolver"
 
 export default (components:ComponentDefinition<HTMLElement,Params>[],mountPoint:HTMLElement) => (
     createSPA(components,createAttachment(mountPoint),{
-        history:createHistory(),
+        history:createHistory(window),
         pathResolver:pathResolver
     })
 )

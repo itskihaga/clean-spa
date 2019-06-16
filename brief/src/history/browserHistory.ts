@@ -1,12 +1,16 @@
 import {History} from "zenra-spa"
 
-export default ():History => (
+export default (window:Window):History => (
+    
     ({
         getPath(){
             return window.location.pathname
         },
-        push(path:string){
+        push(path){
             window.history.pushState(null,"",path)
+        },
+        watch(onPathChange){
+            window.addEventListener("popstate",()=> onPathChange(window.location.pathname))
         }
     })
 )
