@@ -6,42 +6,61 @@ Zenra SPA is light weight & clean & dependency injectable SPA Library
 npm i zenra-spa
 ```
 
-```js
-
+```ts
 import createSPA from "zenra-spa/brief"
 
 const mountPoint = document.getElementById("mount")
+
+const createElement = (text) => {
+    const newElm = document.createElement("div");
+    newElm.innerText = text;
+    return newElm
+}
 
 const {push} = createSPA(
         [
             {
                 path:"/",
-                mount(){
-                    const newElm = document.createElement("div");
-                    newElm.innerText ="TOP"
-                    return {
-                        mounted:newElm
+                component:{
+                    mount(){
+                        return {
+                            mounted:createElement("TOP")
+                        }
                     }
                 }
             },
             {
                 path:"/home",
-                mount(){
-                    const newElm = document.createElement("div");
-                    newElm.innerText ="HOME"
-                    return {
-                        mounted:newElm
+                component:() => ({
+                    mount(){
+                        return {
+                            mounted:createElement("HOME")
+                        }
+                    }
+                })
+            },
+            {
+                path:"/about/:name?",
+                component:{
+                    mount(params){
+                        return {
+                            mounted:createElement("ABOUT " + (params.name || ""))
+                        }
                     }
                 }
             },
             {
-                path:"/about/:name?",
-                mount(params){
-                    const newElm = document.createElement("div");
-                    newElm.innerText ="ABOUT " + (params.name || "")
-                    return {
-                        mounted:newElm
-                    }
+                path:"/load",
+                component(){
+                    return new Promise(res=> {
+                        setTimeout(res,1000,{
+                            mount(){
+                                return {
+                                    mounted:createElement("LOADED")
+                                }
+                            }
+                        })
+                    })
                 }
             }
         ],

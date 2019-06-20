@@ -1,7 +1,6 @@
 
-import {PathResolver} from "./pathResolver"
-import {ComponentMapping,Component,ComponentInstance} from "./index"
-import {resolvePromiseOrFunctionOrObject} from "./util"
+import {PathResolver,ComponentMapping,Component,ComponentInstance} from "zenra-spa"
+import {resolvePromiseOrFunctionOrObject} from "../util"
 
 export interface ComponentManager<T,P> {
     resolve(path:string):PathResolver.Result<P>,

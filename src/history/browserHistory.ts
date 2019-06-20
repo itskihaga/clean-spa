@@ -1,7 +1,6 @@
 import {History} from "zenra-spa"
 
 export default (window:Window):History => (
-
     ({
         getPath(){
             return window.location.pathname

@@ -1,4 +1,2 @@
-export interface Attachment<T> {
-    attach:(instance : T ) => void ,
-    detach?:(instance : T )=>void
-}
+import domAttachment from "./domAttachment"
+export {domAttachment}

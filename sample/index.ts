@@ -1,5 +1,5 @@
 
-import createSPA ,{Component}from "../brief/src/index"
+import createSPA from "../brief/src/index"
 const mountPoint = document.getElementById("mount")
 
 if(!mountPoint){
@@ -47,7 +47,7 @@ const {push} = createSPA(
             {
                 path:"/load",
                 component(){
-                    return new Promise<Component>(res=> {
+                    return new Promise(res=> {
                         setTimeout(res,1000,{
                             mount(){
                                 return {

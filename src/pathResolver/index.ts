@@ -1,7 +1,3 @@
-export type PathResolver<P> = (matcher:string) => (path:string) => PathResolver.Result<P>
-
-export namespace PathResolver {
-    export type Result<P> = {
-        params:P
-    } | false
-}
+import regexpPathResolver from "./regexpPathResolver"
+import simplePathResolver from "./simplePathResolver"
+export { regexpPathResolver ,simplePathResolver } 

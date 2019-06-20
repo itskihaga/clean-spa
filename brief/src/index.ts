@@ -1,13 +1,9 @@
-import createSPA,{ComponentMapping,Component as _Component} from "zenra-spa"
-import createAttachment from "./attachment/domAttachment"
-import createHistory from "./history/browserHistory"
-import pathResolver,{Params} from "./pathResolver/regexpPathResolver"
-
-export type Component = _Component<HTMLElement,Params>
+import createSPA,{ComponentMapping,domAttachment,browserHistory,regexpPathResolver} from "zenra-spa"
+import {Params} from "../../src/pathResolver/regexpPathResolver"
 
 export default (components:ComponentMapping<HTMLElement,Params>[],mountPoint:HTMLElement) => (
-    createSPA(components,createAttachment(mountPoint),{
-        history:createHistory(window),
-        pathResolver
+    createSPA(components,domAttachment(mountPoint),{
+        history:browserHistory(window),
+        pathResolver:regexpPathResolver
     })
 )
