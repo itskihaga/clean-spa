@@ -1,16 +1,17 @@
 
-import {PathResolver,ComponentMapping,Component,ComponentInstance} from "zenra-spa"
+import {ComponentMapping,Component,ComponentInstance,Params} from "zenra-spa"
 import {resolvePromiseOrFunctionOrObject} from "../util"
+import pathResolver,{PathResolver} from "./regexpPathResolver"
 
-export interface ComponentManager<T,P> {
-    resolve(path:string):PathResolver.Result<P>,
-    mount(params:P):ComponentInstance<T,P> | Promise<ComponentInstance<T,P>>,
+export interface ComponentManager<T> {
+    resolve(path:string):PathResolver.Result,
+    mount(params:Params):ComponentInstance<T> | Promise<ComponentInstance<T>>,
     path:string
 }
 
-export default <T,P>({path,component}:ComponentMapping<T,P>,resolver:PathResolver<P>):ComponentManager<T,P> => {
-    const resolve = resolver(path);
-    let buf : Component<T,P> | void;
+export default <T>({path,component}:ComponentMapping<T>):ComponentManager<T> => {
+    const resolve = pathResolver(path);
+    let buf : Component<T> | void;
     return {
         resolve,
         async mount(params){

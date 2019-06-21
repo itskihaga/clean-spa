@@ -1,25 +1,20 @@
-import {ComponentMapping,Attachment,History,ComponentInstance,PathResolver} from "zenra-spa"
+import {ComponentInstance,Config} from "zenra-spa"
 import createManager,{ComponentManager} from "./componentManager"
 
-export interface Config<P> {
-    history:History,
-    pathResolver:PathResolver<P>,
-}
-
-export default <T,P = undefined>(components:ComponentMapping<T,P>[],{attach,detach}:Attachment<T>,{history,pathResolver}:Config<P>)=> {
+export default <T>({components,attachment,history}:Config<T>)=> {
     
-    const managers : ComponentManager<T,P>[] = components.map(component => createManager(component,pathResolver))
-    let current : {path:string,instance:ComponentInstance<T,P>} | void
+    const managers : ComponentManager<T>[] = components.map(component => createManager(component))
+    let current : {path:string,instance:ComponentInstance<T>} | void
 
     const change = async (pathTo:string) => {
         for(let {resolve,mount,path} of managers) {
             const res = resolve(pathTo)
             if(res){
                 current && current.instance.unmount && current.instance.unmount()
-                current && detach && detach(current.instance.mounted)
+                current && attachment.detach && attachment.detach(current.instance.mounted)
                 const {params} = res
                 const instance = await mount(params)
-                attach(instance.mounted)
+                attachment.attach(instance.mounted)
                 current = {
                     path,
                     instance

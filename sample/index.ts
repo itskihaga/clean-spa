@@ -1,5 +1,5 @@
 
-import createSPA from "../brief/src/index"
+import createSPA,{browserHistory,domAttachment} from "zenra-spa"
 const mountPoint = document.getElementById("mount")
 
 if(!mountPoint){
@@ -13,7 +13,8 @@ const createElement = (text:string) => {
 }
 
 const {push} = createSPA(
-        [
+    {
+        components:[
             {
                 path:"/",
                 component:{
@@ -59,7 +60,9 @@ const {push} = createSPA(
                 }
             }
         ],
-        mountPoint
+        attachment:domAttachment(mountPoint),
+        history: browserHistory(window)
+    }
 )
 
 document.querySelectorAll("a").forEach(e =>{

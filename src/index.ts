@@ -1,24 +1,21 @@
 import createSPA from "./core"
 export default createSPA
 
-export interface Component<T,P> {
-    mount(params:P):ComponentInstance<T,P>,
+export type Params = {[key:string]:string | undefined}
+
+export interface Component<T> {
+    mount(params:Params):ComponentInstance<T>,
 }
 
-export type ComponentMapping<T,P> = {
+export type ComponentMapping<T> = {
     path:string,
-    component:Component<T,P> | (() => Component<T,P>) | (() => Promise<Component<T,P>>)
+    component:Component<T> | (() => Component<T>) | (() => Promise<Component<T>>)
 }
 
-export interface ComponentInstance<T,P> {
+export interface ComponentInstance<T> {
     unmount?():void
-    setParams?(params:P):void,
+    setParams?(params:Params):void,
     mounted:T
-}
-
-export interface Config<P> {
-    history:History,
-    pathResolver:PathResolver<P>,
 }
 
 export interface Attachment<T> {
@@ -32,16 +29,13 @@ export interface History {
     watch?(onPathChange:()=>void):void
 }
 
-export type PathResolver<P> = (matcher:string) => (path:string) => PathResolver.Result<P>
-
-export namespace PathResolver {
-    export type Result<P> = {
-        params:P
-    } | false
+export interface Config<T> {
+    components:ComponentMapping<T>[],
+    attachment:Attachment<T>,
+    history:History
 }
 
 export * from "./attachment"
-export * from "./pathResolver"
 export * from "./history"
 
 

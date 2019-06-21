@@ -7,9 +7,7 @@ npm i zenra-spa
 ```
 
 ```ts
-import createSPA from "zenra-spa/brief"
-
-const mountPoint = document.getElementById("mount")
+import createSPA,{browserHistory,domAttachment} from "zenra-spa"
 
 const createElement = (text) => {
     const newElm = document.createElement("div");
@@ -18,7 +16,8 @@ const createElement = (text) => {
 }
 
 const {push} = createSPA(
-        [
+    {
+        components:[
             {
                 path:"/",
                 component:{
@@ -64,7 +63,9 @@ const {push} = createSPA(
                 }
             }
         ],
-        mountPoint
+        attachment:domAttachment(document.createElement("div")),
+        history: browserHistory(window)
+    }
 )
 
 document.querySelectorAll("a").forEach(e =>{

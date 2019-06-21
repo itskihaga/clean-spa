@@ -1,8 +1,14 @@
-import {PathResolver} from "zenra-spa"
 import * as pathToRegexp from "path-to-regexp"
+import { Params } from "zenra-spa"
+ 
+export type PathResolver = (matcher:string) => (path:string) => PathResolver.Result
+export namespace PathResolver {
+    export type Result = {
+        params:Params
+    } | false
+}
 
-export type Params = {[key:string]:string | undefined}
-const pathResolver : PathResolver<Params> = matcher => {
+const pathResolver : PathResolver = matcher => {
     const keys :pathToRegexp.Key[] = []
     const reg = pathToRegexp(matcher,keys)
     return path => {
