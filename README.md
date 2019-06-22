@@ -76,3 +76,25 @@ document.querySelectorAll("a").forEach(e =>{
 })
 
 ```
+
+### Config 
+
+#### component
+`components` configuration is definition about UI Components and path.
+You can specify `component` as 1:`Component` , 2:function returning `Component` or 3:function returning Promise of `Component`
+if you specify it as '3', the function will be called at once on the first time when the component is called by router.
+`Component` must define how to create UI element.
+You implement `mount` function returning `ComponentInstance` on your `Component` definition.
+`ComponentInstance` is warpper instance of UI element.
+
+#### attachment
+`attachment` configuration is definition how to attach and detach UI Component to your application when routing.
+You can specify it as `Attachment`.
+`attach` function of `Attachment` is called when router pick an UI component to render (as generally) by current current path statement
+
+#### history
+`history` configuration is logic that SPA and current path statement work together.
+You can specify it as `History`.
+`getPath` function of `History` gets currernt path statement.
+`push` function changes currernt path statement and push the history.
+`watch` function sets a listenr on change of currernt path statement.
