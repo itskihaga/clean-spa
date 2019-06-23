@@ -1,6 +1,6 @@
 {
   "name": "zenra-spa",
-  "version": "0.0.99",
+  "version": "0.1.0-beta",
   "description": "Zenra SPA is light weight & clean & dependency injectable SPA Library",
   "main": "public/src/index.js",
   "scripts": {
