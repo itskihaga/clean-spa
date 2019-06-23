@@ -37,11 +37,12 @@ if (mountPoint) {
                     path: "/update/:param?",
                     component: {
                         mount(params) {
+                            const mounted = createElement("UPDATE " + (params.param || ""))
                             return {
-                                mounted: createElement("UPDATE " + (params.param || "")),
-                                update(target, params) {
-                                    target.innerText = `UPDATE ${(params.param || "")}
-                                        Component updated without remount.`
+                                mounted,
+                                update(params) {
+                                    mounted.innerText = `UPDATE ${(params.param || "")}
+                                        Component updated without remounting.`
                                 }
                             }
                         }

@@ -16,7 +16,7 @@ export default <T>({components,attachment,history}:Config<T>)=> {
                 if(current){
                     const {instance} = current
                     if(id === current.id && instance.update){
-                        instance.update(instance.mounted,params);
+                        instance.update(params);
                         return true;
                     }
                     instance.unmount && instance.unmount()
