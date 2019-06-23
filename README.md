@@ -7,7 +7,7 @@ npm i zenra-spa
 ```
 
 ```ts
-import createSPA,{browserHistory,domAttachment} from "zenra-spa"
+import createSPA, { browserHistory, domAttachment } from "zenra-spa"
 
 const createElement = (text) => {
     const newElm = document.createElement("div");
@@ -15,65 +15,80 @@ const createElement = (text) => {
     return newElm
 }
 
-const {push} = createSPA(
-    {
-        components:[
-            {
-                path:"/",
-                component:{
-                    mount(){
-                        return {
-                            mounted:createElement("TOP")
+const mountPoint = document.getElementById("mount")
+
+if (mountPoint) {
+    const { push } = createSPA(
+        {
+            components: [
+                {
+                    path: "/",
+                    component: {
+                        mount() {
+                            return {
+                                mounted: createElement("TOP")
+                            }
                         }
                     }
-                }
-            },
-            {
-                path:"/home",
-                component:() => ({
-                    mount(){
-                        return {
-                            mounted:createElement("HOME")
+                },
+                {
+                    path: "/home",
+                    component: () => ({
+                        mount() {
+                            return {
+                                mounted: createElement("HOME")
+                            }
                         }
-                    }
-                })
-            },
-            {
-                path:"/about/:name?",
-                component:{
-                    mount(params){
-                        return {
-                            mounted:createElement("ABOUT " + (params.name || ""))
-                        }
-                    }
-                }
-            },
-            {
-                path:"/load",
-                component(){
-                    return new Promise(res=> {
-                        setTimeout(res,1000,{
-                            mount(){
-                                return {
-                                    mounted:createElement("LOADED")
+                    })
+                },
+                {
+                    path: "/update/:param?",
+                    component: {
+                        mount(params) {
+                            return {
+                                mounted: createElement("UPDATE " + (params.param || "")),
+                                update(target, params) {
+                                    target.innerText = `UPDATE ${(params.param || "")}
+                                        Component updated without remount.`
                                 }
                             }
+                        }
+                    }
+                },
+                {
+                    path: "/load",
+                    component() {
+                        return new Promise(res => {
+                            setTimeout(res, 1000, {
+                                mount() {
+                                    return {
+                                        mounted: createElement("LOADED")
+                                    }
+                                }
+                            })
                         })
-                    })
+                    }
                 }
-            }
-        ],
-        attachment:domAttachment(document.createElement("div")),
-        history: browserHistory(window)
-    }
-)
+            ],
+            attachment: domAttachment(mountPoint),
+            history: browserHistory(window)
+        }
+    )
 
-document.querySelectorAll("a").forEach(e =>{
-    e.addEventListener("click",event =>{
-        event.preventDefault()
-        push(e.pathname)
-    })
-})
+    const nav = document.getElementById("nav")
+    if (nav) {
+        ["/", "/home", "/update", "/update/hoge", "/load"].forEach(e => {
+            const a = document.createElement("a")
+            a.href = e;
+            a.innerText = e;
+            a.addEventListener("click", event => {
+                event.preventDefault()
+                push(e)
+            })
+            nav.appendChild(a);
+        })
+    }
+}
 
 ```
 
