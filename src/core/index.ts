@@ -11,16 +11,20 @@ export default <T>({components,attachment,history}:Config<T>)=> {
         for(let {resolve,load,id} of managers) {
             const res = resolve(pathTo)
             if(res){
+                const {params} = res
                 resolving = {id}
                 if(current){
                     const {instance} = current
+                    if(id === current.id && instance.update){
+                        instance.update(instance.mounted,params);
+                        return true;
+                    }
                     instance.unmount && instance.unmount()
                     attachment.detach && attachment.detach(instance.mounted)
+                    current = undefined
                 }
-                current = undefined
                 const {mount} = await load()
                 if(id === resolving.id){
-                    const {params} = res
                     const instance = mount(params)
                     attachment.attach(instance.mounted)
                     current = {

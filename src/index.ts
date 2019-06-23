@@ -14,7 +14,7 @@ export type ComponentMapping<T> = {
 
 export interface ComponentInstance<T> {
     unmount?():void
-    setParams?(params:Params):void,
+    update?(target:T,params:Params):void,
     mounted:T
 }
 

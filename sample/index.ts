@@ -1,5 +1,6 @@
 
 import createSPA,{browserHistory,domAttachment} from "zenra-spa"
+import { NPN_ENABLED } from "constants";
 const mountPoint = document.getElementById("mount")
 
 if(!mountPoint){
@@ -36,11 +37,15 @@ const {push} = createSPA(
                 })
             },
             {
-                path:"/about/:name?",
+                path:"/update/:param?",
                 component:{
                     mount(params){
                         return {
-                            mounted:createElement("ABOUT " + (params.name || ""))
+                            mounted:createElement("UPDATE " + (params.param || "")),
+                            update(target,params){
+                                target.innerText = `UPDATE ${(params.param || "")}
+                                    Component updated without remount.` 
+                            }
                         }
                     }
                 }
@@ -65,9 +70,16 @@ const {push} = createSPA(
     }
 )
 
-document.querySelectorAll("a").forEach(e =>{
-    e.addEventListener("click",event =>{
-        event.preventDefault()
-        push(e.pathname)
+const nav = document.getElementById("nav")
+if(nav){
+    ["/","/home","/update","/update/hoge","/load"].forEach(e => {
+        const a = document.createElement("a")
+        a.href = e;
+        a.innerText = e;
+        a.addEventListener("click",event =>{
+            event.preventDefault()
+            push(e)
+        })
+        nav.appendChild(a);
     })
-})
+}
