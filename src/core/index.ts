@@ -3,21 +3,30 @@ import createManager,{ComponentManager} from "./componentManager"
 
 export default <T>({components,attachment,history}:Config<T>)=> {
     
-    const managers : ComponentManager<T>[] = components.map(component => createManager(component))
-    let current : {path:string,instance:ComponentInstance<T>} | void
+    const managers : ComponentManager<T>[] = components.map(createManager)
+    let current : {id:number,instance:ComponentInstance<T>} | void
+    let resolving : {id:number} | void
 
     const change = async (pathTo:string) => {
-        for(let {resolve,mount,path} of managers) {
+        for(let {resolve,load,id} of managers) {
             const res = resolve(pathTo)
             if(res){
-                current && current.instance.unmount && current.instance.unmount()
-                current && attachment.detach && attachment.detach(current.instance.mounted)
-                const {params} = res
-                const instance = await mount(params)
-                attachment.attach(instance.mounted)
-                current = {
-                    path,
-                    instance
+                resolving = {id}
+                if(current){
+                    const {instance} = current
+                    instance.unmount && instance.unmount()
+                    attachment.detach && attachment.detach(instance.mounted)
+                }
+                current = undefined
+                const {mount} = await load()
+                if(id === resolving.id){
+                    const {params} = res
+                    const instance = mount(params)
+                    attachment.attach(instance.mounted)
+                    current = {
+                        id,
+                        instance
+                    }
                 }
                 return true;
             }

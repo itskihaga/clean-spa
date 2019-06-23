@@ -5,25 +5,25 @@ import pathResolver,{PathResolver} from "./regexpPathResolver"
 
 export interface ComponentManager<T> {
     resolve(path:string):PathResolver.Result,
-    mount(params:Params):ComponentInstance<T> | Promise<ComponentInstance<T>>,
-    path:string
+    id:number,
+    load():Promise<Component<T>> | Component<T>
 }
 
-export default <T>({path,component}:ComponentMapping<T>):ComponentManager<T> => {
+export default <T>({path,component}:ComponentMapping<T>,id:number):ComponentManager<T> => {
     const resolve = pathResolver(path);
     let buf : Component<T> | void;
     return {
         resolve,
-        async mount(params){
+        load() {
             if(buf){
-                return buf.mount(params)
+                return buf
             }
-            return await resolvePromiseOrFunctionOrObject(component).then(e =>{
+            return resolvePromiseOrFunctionOrObject(component).then(e =>{
                 buf = e;
-                return e.mount(params)
+                return buf
             })
         },
-        path
+        id
     }
 }
 
