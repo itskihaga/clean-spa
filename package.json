@@ -24,9 +24,7 @@
     "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.7.1"
   },
-  "dependencies": {
-    "path-to-regexp": "^3.0.0"
-  },
+  "dependencies": {},
   "files": [
     "public/",
     "brief/"
